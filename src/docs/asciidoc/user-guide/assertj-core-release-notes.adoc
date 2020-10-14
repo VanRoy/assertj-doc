@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-18-0-release-notes[AssertJ Core 3.18.0]
 - link:#assertj-core-3-17-2-release-notes[AssertJ Core 3.17.2]
 - link:#assertj-core-3-17-1-release-notes[AssertJ Core 3.17.1]
 - link:#assertj-core-3-17-0-release-notes[AssertJ Core 3.17.0]
@@ -20,6 +21,87 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-18-0-release-notes]]
+==== AssertJ Core 3.18.0
+
+Release date : 2020-11-xx
+
+[[assertj-core-3.18.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Fr Jeremy Krieg, Drummond Dawson and BJ Hargrave.
+
+_Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the final squashed commit was pushed with me as the author instead of him, sorry Hayden!
+
+[[assertj-core-3.18.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Breaking change: disable bare name getter by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+
+[[assertj-core-3.18.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add field injection capability to `SoftAssertionsExtension`. (Fr Jeremy Krieg)
+* Add `hasValueSatisfying` and `hasValueMatching` to `AtomicReference` assertions. (Valeriy Vyrva)
+* Add link:#assertj-core-3.18.0-isCloseTo[`isCloseTo`] to `Duration` assertion.
+* Add link:#assertj-core-3.18.0-failsWithin[`failsWithin`] to `Future` and `CompletableFuture` assertions.
+
+[[assertj-core-3.18.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Add `AssertionError` factory methods to `AbstractAssert`. (Fr Jeremy Krieg)
+* Improve describe error readability of `ElementsShouldSatisfy`. (Drummond Dawson)
+* Improve `isTrue`/`isFalse` assertions error messages.
+* Use two spaces indentation in "should be close to" error messages.
+* Internal: Add CodeQL analysis. (Stefano Cordio)
+* Internal: Enforce surefire encoding. (Stefano Cordio)
+* Internal: Bump jackson-databind from 2.11.2 to 2.11.3.
+* Internal: Bump org.eclipse.osgi from 3.15.300 to 3.16.0.
+* Internal: Bump equalsverifier from 3.4.2 to 3.4.3.
+* Internal: Bump byte-buddy version from 1.10.14 to 1.10.16.
+* Internal: Bump assertj-parent-pom from 2.2.7 to 2.2.8.
+* Internal: Bump mockito.version from 3.5.10 to 3.5.13.
+* Internal: Bump jacoco-maven-plugin from 0.8.5 to 0.8.6. (Stefano Cordio)
+* Internal: Add assumptions it tests. (Stefano Cordio)
+* Internal: Reduce visibility of FieldUtils as no method is publicly accessible. (Stefano Cordio)
+* Internal: Remove unnecessary semicolons. (Erhard Pointl)
+
+[[assertj-core-3.18.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Honor toString if overridden in Iterable that are not collections.
+
+[[assertj-core-3.18.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+* Deprecate `isXmlEqualTo` in favor of https://www.xmlunit.org/[XML Unit].
+
+[[assertj-core-3.18.0-Period-assertion]]
+[.release-note-item]#Add `java.time.Period` assertions#
+
+Provides the following assertions for the `Period`:
+
+*	`hasDays(int expectedDays)`: Verifies that the actual Period has the given days.
+*	`hasMonths(int expectedMonths)`: Verifies that the actual Period has the given months.
+*	`hasYears(int expectedYears)`: Verifies that the actual Period has the given years.
+*	`isNegative()`: Verifies that the actual Period is negative (i.e. is less than `Period.ZERO`).
+*	`isPositive()`: Verifies that the actual Period is positive (i.e. is greater than `Period.ZERO`).
+
+Examples:
+[source,java]
+----
+assertThat(Period.ofYears(5)).hasYears(5);
+
+assertThat(Period.ofMonths(5)).hasMonths(5);
+
+assertThat(Period.ofDays(5)).hasDays(5)
+                            .isPositive();
+
+assertThat(Period.ofMonths(-5)).isNegative();
+----
+
+
 
 [[assertj-core-3-17-2-release-notes]]
 ==== AssertJ Core 3.17.2
