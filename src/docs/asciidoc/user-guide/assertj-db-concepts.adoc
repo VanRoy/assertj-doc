@@ -2,15 +2,12 @@
 === Concepts
 
 * <<assertj-db-concepts-connection,Connection to the database>>
-** <<assertj-db-concepts-datasource,DataSource>>
-** <<assertj-db-concepts-source, Source>>
-** <<assertj-db-concepts-datasourcewithlettercase, DataSource with LetterCase>> [.small]#(since <<assertj-db-1-1-0-release-notes,1.1.0>>)#
-** <<assertj-db-concepts-sourcewithlettercase, Source with LetterCase>> [.small]#(since <<assertj-db-1-1-0-release-notes,1.1.0>>)#
+** <<assertj-db-concepts-assertdbconnection,AssertDbConnection>> [.small]#(since <<assertj-db-3-0-0-release-notes,3.0.0>>)#
 
 * <<assertj-db-concepts-elements, Elements of the database>>
-** <<assertj-db-concepts-table, Table>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,1.2.0>>)#
-** <<assertj-db-concepts-request, Request>>
-** <<assertj-db-concepts-changes, Changes>>
+** <<assertj-db-concepts-table, Table>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-request, Request>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-changes, Changes>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
 ** <<assertj-db-concepts-change, Change>>
 ** <<assertj-db-concepts-row, Row>>
 ** <<assertj-db-concepts-column, Column>>
@@ -83,21 +80,21 @@ For the examples below, suppose that the database contains these three tables :
 [[assertj-db-concepts-connection]]
 ==== Connection to the database
 
-To make assertions on a database, it is necessary to connect. For that, either to use a `DataSource`
-or a `Source`.
+To make assertions on a database, it is necessary to connect. The concept of `AssertDbConnection` represent how
+AssertJ-DB can retrieve data and schema information from database.
 
-[[assertj-db-concepts-datasource]]
-===== DataSource
+It's also with a `AssertDbConnection` that you can instantiate the following element : `Table`, `Request`, `Changes`.
 
-A http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] is the classic Java way
-to get a http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database.
+[[assertj-db-concepts-assertdbconnection]]
+===== AssertDbConnection
 
-[[assertj-db-concepts-source]]
-===== Source
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
+is created with the factory https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory].
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source] is a way
-to connect if you have not access to a DataSource or if you do not want to use one. It allows you
-to pass the necessary connection information as constructor parameters. Below is an example of using a Source
+There are 2 way to begin the AssertDbConnectionFactory, with a http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] ( the classic Java way
+to get a http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database ) or JDBC connection information.
+
+Below is an example of using a Source
 to connect to H2 in memory database :
 
 [source,java]
